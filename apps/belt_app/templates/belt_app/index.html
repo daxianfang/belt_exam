@@ -2,32 +2,42 @@
 	<html>
 	<head>
 		<title>Login & Reg | Home</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'belt_app/css/style.css' %}">
 	</head>
 	<body>
-		{% if messages %}
-			<ul class="messages">
-			    {% for message in messages %}
-			    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-			    {% endfor %}
-			</ul>
-		{% endif %}
-	
-		<h2>Registration</h2>
-		<form action="/register" method="post">
-			{% csrf_token %}
-			<label>First Name: <input type="text" name="first_name"></label>
-			<label>Last Name: <input type="text" name="last_name"></label>
-			<label>Email: <input type="text" name="email"></label>
-			<label>Password: <input type="password" name="password"></label>
-			<label>Confirm Password: <input type="password" name="confirm_password"></label>
-			<input type="submit" value="Register">
-		</form>
+		<div id="wrapper">		
+			<div id="register">
+				<h2>Registration</h2>
+				<form action="/register" method="post">
+					{% csrf_token %}
+					<label>First Name: <input type="text" name="first_name"></label>
+					<label>Last Name: <input type="text" name="last_name"></label>
+					<label>Email: <input type="text" name="email"></label>
+					<label>Password: <input type="password" name="password"></label>
+					<label>Confirm Password: <input type="password" name="confirm_password"></label>
+					<input type="submit" value="Register" class="button">
+				</form>
+			</div>
 
-		<form action="/login" method="post">
-			{% csrf_token %}
-			<label>Email: <input type="text" name="email"></label>
-			<label>Password: <input type="password" name="password"></label>
-			<input type="submit" value="Login">
-		</form>
+			<div id="login">
+				<h2>Login</h2>
+				<form action="/login" method="post">
+					{% csrf_token %}
+					<label>Email: <input type="text" name="email"></label>
+					<label>Password: <input type="password" name="password"></label>
+					<input type="submit" value="Login" class="button">
+				</form>
+			</div>
+
+			{% if messages %}
+				<ul class="messages">
+				    {% for message in messages %}
+				    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				    {% endfor %}
+				</ul>
+			{% endif %}
+
+		</div>
 	</body>
 </html>

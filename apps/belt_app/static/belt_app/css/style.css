@@ -1,0 +1,41 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background: white url("background.png");
+}
+
+#wrapper {
+	width: 900px;
+	margin: 100px auto;
+	background-color: rgba(0, 0, 255, 0.2);
+	border-radius: 50px;
+}
+
+#wrapper ul {
+	color: darkred;
+	margin-left: 50px;
+}
+
+h2 {
+	margin-bottom: 30px;
+}
+
+#login, #register {
+	width: 300px;
+	margin: 50px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+label, .button {
+	margin: 5px 0px;
+	float: right;
+	clear: both;
+}
+
+label {
+	display: block;
+}
