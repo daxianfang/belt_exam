@@ -11,8 +11,8 @@
 				<h2>Registration</h2>
 				<form action="/register" method="post">
 					{% csrf_token %}
-					<label>First Name: <input type="text" name="first_name"></label>
-					<label>Last Name: <input type="text" name="last_name"></label>
+					<label>Name: <input type="text" name="name"></label>
+					<label>Alias: <input type="text" name="alias"></label>
 					<label>Email: <input type="text" name="email"></label>
 					<label>Password: <input type="password" name="password"></label>
 					<label>Confirm Password: <input type="password" name="confirm_password"></label>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+	<html>
+	{% for user in users %}
+	<head>
+		<title>{{ user.alias }}</title>
+	</head>
+	<body>
+		<a href="/success">Home</a> <a href="/logout">Logout</a>
+		<h2>{{ user.alias }}'s Profile</h2>
+		<p>Name: {{user.name}}</p>
+		<p>Email Address: {{user.email}}</p>
+	</body>
+	{% endfor %}
+</html>

@@ -1,9 +1,52 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Login & Reg | Success</title>
+		<title>Friends</title>
 	</head>
 	<body>
-		<h2>Success</h2>
+		<a href="/logout">Logout</a>
+
+		<h2>Hello, {{request.session.login_alias}}!</h2>
+		<p>Here is the list of your friends:</p>
+		<table>
+			<thead>
+				<tr>
+					<td>Alias</td>
+					<td>Action</td>
+				</tr>
+			</thead>
+			<tbody>
+			{% for topfriend in topfriends %}
+				<tr>
+					<td>{{ topfriend.friend.alias }}</td>
+					<form action="/remove/{{topfriend.id}}" method="post">
+					{% csrf_token %}
+					<td><a href="/info/{{topfriend.friend.id}}">View Profile</a> <input type="submit" value="Remove as Friend"></td>
+					</form>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+
+		<p>Other users not on your friend's list:</p>
+		<table>
+			<thead>
+				<tr>
+					<td>Alias</td>
+					<td>Action</td>
+				</tr>
+			</thead>
+			<tbody>
+			{% for friend in friends %}
+				<tr>
+					<td><a href="/info/{{friend.id}}">{{ friend.alias }}</a></td>
+					<form action="/add/{{friend.id}}" method="post">
+					{% csrf_token %}
+					<td><input type="submit" value="Add as Friend"></td>
+					</form>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
 	</body>
 </html>

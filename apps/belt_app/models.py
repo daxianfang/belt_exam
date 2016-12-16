@@ -7,33 +7,33 @@ import bcrypt
 # Create your models here.
 
 class UserManager(models.Manager):
-	def register(self, request, first_name, last_name, email, password, confirm_password):
-		FIRST_NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
-		LAST_NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
+	def register(self, request, name, alias, email, password, confirm_password):
+		NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
+		ALIAS_REGEX = re.compile(r'^[a-zA-Z]+$')
 		EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 		is_valid = True
 
-		# User first name validation
-		if len(first_name) == 0:
-			messages.error(request, 'User first name is required.')
+		# User name validation
+		if len(name) == 0:
+			messages.error(request, 'User name is required.')
 			is_valid = False
-		elif len(first_name) < 2:
-			messages.error(request, 'User first name cannot be less than 2 characters.')
+		elif len(name) < 2:
+			messages.error(request, 'User name cannot be less than 2 characters.')
 			is_valid = False
-		elif not FIRST_NAME_REGEX.match(first_name):
-			messages.error(request, 'User first name is letters only.')
+		elif not NAME_REGEX.match(name):
+			messages.error(request, 'User name is letters only.')
 			is_valid = False
 
-		# User last name validation
-		if len(last_name) == 0:
-			messages.error(request, 'User last name is required.')
+		# User alias validation
+		if len(alias) == 0:
+			messages.error(request, 'User alias is required.')
 			is_valid = False
-		elif len(last_name) < 2:
-			messages.error(request, 'User last name cannot be less than 2 characters.')
+		elif len(alias) < 2:
+			messages.error(request, 'User alias cannot be less than 2 characters.')
 			is_valid = False
-		elif not LAST_NAME_REGEX.match(last_name):
-			messages.error(request, 'User last name is letters only.')
+		elif not ALIAS_REGEX.match(alias):
+			messages.error(request, 'User alias is letters only.')
 			is_valid = False
 
 		# User email validation
@@ -66,7 +66,7 @@ class UserManager(models.Manager):
 
 		if is_valid:
 			hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-			User.objects.create(first_name=first_name, last_name=last_name, email=email, pw_hash=hashed)
+			User.objects.create(name=name, alias=alias, email=email, pw_hash=hashed)
 
 		return is_valid
 
@@ -92,11 +92,25 @@ class UserManager(models.Manager):
 		return valid_login
 
 class User(models.Model):
-	first_name = models.CharField(max_length=45)
-	last_name = models.CharField(max_length=45)
+	name = models.CharField(max_length=45)
+	alias = models.CharField(max_length=45)
 	email = models.CharField(max_length=100)
 	pw_hash = models.CharField(max_length=100)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
 	objects = UserManager()
+
+class Friendship(models.Model):
+	user = models.ForeignKey('User', related_name="usersfriend")
+	friend = models.ForeignKey('User', related_name="friendsfriend")
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+
+
+
+
+
+
+
